@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>LeetCode第227场周赛 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1754. 构造字典序最大的合并字符串给你两个字符串 word1 和 word2 。你需要按下述方式构造一个新字符串 merge ：如果 word1 或 word2 非空，选择 下面选项之一 继续操作：  如果word1 非空，将word1中的第一个字符附加到merge的末尾，并将其从word1中移除。  例如，word1 &#x3D; &quot;abc&quot; 且 merge &#x3D; &quot;dv&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode第227场周赛">
+<meta property="og:url" content="http://jq-mono.github.io/2021/02/07/LeetCode%E7%AC%AC227%E5%9C%BA%E5%91%A8%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1754. 构造字典序最大的合并字符串给你两个字符串 word1 和 word2 。你需要按下述方式构造一个新字符串 merge ：如果 word1 或 word2 非空，选择 下面选项之一 继续操作：  如果word1 非空，将word1中的第一个字符附加到merge的末尾，并将其从word1中移除。  例如，word1 &#x3D; &quot;abc&quot; 且 merge &#x3D; &quot;dv&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-23T06:27:21.058Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jq-mono.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-LeetCode第227场周赛" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/07/LeetCode%E7%AC%AC227%E5%9C%BA%E5%91%A8%E8%B5%9B/" class="article-date">
+  <time class="dt-published" datetime="2021-02-06T16:00:00.000Z" itemprop="datePublished">2021-02-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LC%E5%91%A8%E8%B5%9B/">LC周赛</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      LeetCode第227场周赛
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="1754-构造字典序最大的合并字符串"><a href="#1754-构造字典序最大的合并字符串" class="headerlink" title="1754. 构造字典序最大的合并字符串"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-merge-of-two-strings/">1754. 构造字典序最大的合并字符串</a></h4><p>给你两个字符串 <code>word1</code> 和 <code>word2</code> 。你需要按下述方式构造一个新字符串 <code>merge</code> ：如果 <code>word1</code> 或 <code>word2</code> 非空，选择 <strong>下面选项之一</strong> 继续操作：</p>
+<ul>
+<li><p>如果<code>word1</code> 非空，将<code>word1</code>中的第一个字符附加到<code>merge</code>的末尾，并将其从<code>word1</code>中移除。</p>
+</li>
+<li><p>例如，<code>word1 = &quot;abc&quot; </code>且 <code>merge = &quot;dv&quot;</code> ，在执行此选项操作之后，<code>word1 = &quot;bc&quot;</code> ，同时 <code>merge = &quot;dva&quot;</code> 。</p>
+</li>
+<li><p>如果<code>word2</code>非空，将<code>word2</code>中的第一个字符附加到<code>merge</code>的末尾，并将其从<code>word2</code>中移除。</p>
+<ul>
+<li>例如，<code>word2 = &quot;abc&quot; </code>且 <code>merge = &quot;&quot;</code> ，在执行此选项操作之后，<code>word2 = &quot;bc&quot;</code> ，同时 <code>merge = &quot;a&quot;</code> 。</li>
+</ul>
+</li>
+</ul>
+<p>返回你可以构造的字典序 <strong>最大</strong> 的合并字符串 <code>merge</code> <em>。</em></p>
+<p>长度相同的两个字符串 <code>a</code> 和 <code>b</code> 比较字典序大小，如果在 <code>a</code> 和 <code>b</code> 出现不同的第一个位置，<code>a</code> 中字符在字母表中的出现顺序位于 <code>b</code> 中相应字符之后，就认为字符串 <code>a</code> 按字典序比字符串 <code>b</code> 更大。例如，<code>&quot;abcd&quot;</code> 按字典序比 <code>&quot;abcc&quot;</code> 更大，因为两个字符串出现不同的第一个位置是第四个字符，而 <code>d</code> 在字母表中的出现顺序位于 <code>c</code> 之后。</p>
+<p><strong>示例 1：</strong></p>
+<pre class="language-none"><code class="language-none">输入：word1 &#x3D; &quot;cabaa&quot;, word2 &#x3D; &quot;bcaaa&quot;
+输出：&quot;cbcabaaaaa&quot;
+解释：构造字典序最大的合并字符串，可行的一种方法如下所示：
+- 从 word1 中取第一个字符：merge &#x3D; &quot;c&quot;，word1 &#x3D; &quot;abaa&quot;，word2 &#x3D; &quot;bcaaa&quot;
+- 从 word2 中取第一个字符：merge &#x3D; &quot;cb&quot;，word1 &#x3D; &quot;abaa&quot;，word2 &#x3D; &quot;caaa&quot;
+- 从 word2 中取第一个字符：merge &#x3D; &quot;cbc&quot;，word1 &#x3D; &quot;abaa&quot;，word2 &#x3D; &quot;aaa&quot;
+- 从 word1 中取第一个字符：merge &#x3D; &quot;cbca&quot;，word1 &#x3D; &quot;baa&quot;，word2 &#x3D; &quot;aaa&quot;
+- 从 word1 中取第一个字符：merge &#x3D; &quot;cbcab&quot;，word1 &#x3D; &quot;aa&quot;，word2 &#x3D; &quot;aaa&quot;
+- 将 word1 和 word2 中剩下的 5 个 a 附加到 merge 的末尾。</code></pre>
+
+<p><strong>示例 2：</strong></p>
+<pre class="language-none"><code class="language-none">输入：word1 &#x3D; &quot;abcabc&quot;, word2 &#x3D; &quot;abdcaba&quot;
+输出：&quot;abdcabcabcaba&quot;</code></pre>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= word1.length, word2.length &lt;= 3000</code></li>
+<li><code>word1</code> 和 <code>word2</code> 仅由小写英文组成</li>
+</ul>
+<p><strong>思路：</strong></p>
+<ul>
+<li>贪心选择两字符串头部（记为<code>i</code>和<code>j</code>位置）更大的字符加入答案串，如果一样大，则需要比较<code>i+1</code>和<code>j+1</code>起始的子串</li>
+</ul>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    string <span class="token function">largestMerge</span><span class="token punctuation">(</span>string word1<span class="token punctuation">,</span> string word2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        string ans<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> word1<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span> j <span class="token operator">&lt;</span> word2<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> word1<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> j <span class="token operator">&lt;</span> word2<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>word1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> word2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> ans <span class="token operator">+=</span> word1<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>word1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> word2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> ans <span class="token operator">+=</span> word2<span class="token punctuation">[</span>j<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>word1<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">></span> word2<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                        ans <span class="token operator">+=</span> word1<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    <span class="token keyword">else</span> ans <span class="token operator">+=</span> word2<span class="token punctuation">[</span>j<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> word1<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                ans <span class="token operator">+=</span> word1<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                ans <span class="token operator">+=</span> word2<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
+
+
+
+<h4 id="1755-最接近目标值的子序列和"><a href="#1755-最接近目标值的子序列和" class="headerlink" title="1755. 最接近目标值的子序列和"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/closest-subsequence-sum/">1755. 最接近目标值的子序列和</a></h4><p>给你一个整数数组 <code>nums</code> 和一个目标值 <code>goal</code> 。</p>
+<p>你需要从 <code>nums</code> 中选出一个子序列，使子序列元素总和最接近 <code>goal</code> 。也就是说，如果子序列元素和为 <code>sum</code> ，你需要 <strong>最小化绝对差</strong> <code>abs(sum - goal)</code> 。</p>
+<p>返回 <code>abs(sum - goal)</code> 可能的 <strong>最小值</strong> 。</p>
+<p>注意，数组的子序列是通过移除原始数组中的某些元素（可能全部或无）而形成的数组。</p>
+<p><strong>示例 1：</strong></p>
+<pre class="language-none"><code class="language-none">输入：nums &#x3D; [5,-7,3,5], goal &#x3D; 6
+输出：0
+解释：选择整个数组作为选出的子序列，元素和为 6 。
+子序列和与目标值相等，所以绝对差为 0 。</code></pre>
+
+<p><strong>示例 2：</strong></p>
+<pre class="language-none"><code class="language-none">输入：nums &#x3D; [7,-9,15,-2], goal &#x3D; -5
+输出：1
+解释：选出子序列 [7,-9,-2] ，元素和为 -4 。
+绝对差为 abs(-4 - (-5)) &#x3D; abs(1) &#x3D; 1 ，是可能的最小值。</code></pre>
+
+<p><strong>示例 3：</strong></p>
+<pre class="language-none"><code class="language-none">输入：nums &#x3D; [1,2,3], goal &#x3D; -7
+输出：7</code></pre>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 40</code></li>
+<li><code>-107 &lt;= nums[i] &lt;= 107</code></li>
+<li><code>-109 &lt;= goal &lt;= 109</code></li>
+</ul>
+<p><strong>思路：</strong></p>
+<ul>
+<li><p>将原数组平分为左右两个数组，并分别计算这两个数组所有子序列的和，复杂度为$O(2^{20}*2)$。而整体枚举所有子序列和复杂度为$O(2^{40})$会超时。</p>
+</li>
+<li><p>对上述和进行排序，一个从小到大，一个从大到小，然后用双指针遍历这两个数组，更新答案即可，细节见代码。</p>
+</li>
+</ul>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">make</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> nums<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">ans</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> nums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> nums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                ans<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> i<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> ans<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">int</span> <span class="token function">minAbsDifference</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token operator">&amp;</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> goal<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> n <span class="token operator">=</span> nums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> left <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>nums<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> nums<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> n <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> right <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>nums<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> n <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span> nums<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">sort</span><span class="token punctuation">(</span>left<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> left<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">sort</span><span class="token punctuation">(</span>right<span class="token punctuation">.</span><span class="token function">rbegin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> right<span class="token punctuation">.</span><span class="token function">rend</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> ans <span class="token operator">=</span> INT_MAX<span class="token punctuation">,</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> left<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> j <span class="token operator">&lt;</span> right<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">int</span> t <span class="token operator">=</span> left<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> right<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            ans <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>ans<span class="token punctuation">,</span> <span class="token function">abs</span><span class="token punctuation">(</span>goal <span class="token operator">-</span> t<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">></span> goal<span class="token punctuation">)</span> j<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">&lt;</span> goal<span class="token punctuation">)</span> i<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jq-mono.github.io/2021/02/07/LeetCode%E7%AC%AC227%E5%9C%BA%E5%91%A8%E8%B5%9B/" data-id="ckmm2kgjx0005649vhk6cdm2h" data-title="LeetCode第227场周赛" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/02/14/LeetCode%E7%AC%AC228%E5%9C%BA%E5%91%A8%E8%B5%9B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          LeetCode第228场周赛
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/01/31/LeetCode%E7%AC%AC226%E5%9C%BA%E5%91%A8%E8%B5%9B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">LeetCode第226场周赛</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/LC%E5%91%A8%E8%B5%9B/">LC周赛</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/STL%E5%B8%B8%E7%94%A8%E6%A8%A1%E6%9D%BF%E6%80%BB%E7%BB%93/">STL常用模板总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/">小技巧</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/" rel="tag">STL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%AB%98%E7%B2%BE%E5%BA%A6/" rel="tag">字符串高精度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" rel="tag">小技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/STL/" style="font-size: 20px;">STL</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%AB%98%E7%B2%BE%E5%BA%A6/" style="font-size: 10px;">字符串高精度</a> <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">小技巧</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/03/21/LeetCode%E7%AC%AC233%E5%9C%BA%E5%91%A8%E8%B5%9B/">LeetCode第233场周赛</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/14/LeetCode%E7%AC%AC232%E5%9C%BA%E5%91%A8%E8%B5%9B/">LeetCode第232场周赛</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/07/c++%E4%BD%8D%E8%BF%90%E7%AE%97%E5%87%BD%E6%95%B0%E4%B9%8B-__builtin_/">c++位运算函数之（__builtin_）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/06/LeetCode%E7%AC%AC47%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/">LeetCode第47场双周赛</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/28/LeetCode%E7%AC%AC230%E5%9C%BA%E5%91%A8%E8%B5%9B/">LeetCode第230场周赛</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
