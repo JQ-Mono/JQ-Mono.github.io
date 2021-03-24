@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<meta  lang="zh_CN" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <link rel="icon" href="/img/img.jpg">
+  <title>Monologue's blog</title>
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js" as="script">
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  <link rel="prefetch" href="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js" as="script">
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+  
+  
+  
+  <link href="/js/lib/prism/prism.min.css" rel="stylesheet" data-prism="prism">
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/img.jpg">
+      
+      <span class="navbar-logo-dsc">Monologue's blog</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">首页 </a>
+    
+    <a href="/archives" class="navbar-menu-item">归档 </a>
+    
+    <a href="/tags" class="navbar-menu-item">标签 </a>
+    
+    <a href="/categories" class="navbar-menu-item">分类 </a>
+    
+    <a href="/about" class="navbar-menu-item">关于 </a>
+    
+    <a href="/links" class="navbar-menu-item">友链 </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+  </div>
+</nav>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      STL：map用法
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2020-02-20T16:00:00.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2020-02-21</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/STL常用模板总结/" class="post-meta-link">STL常用模板总结</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>1.3k 字</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/STL/" class="post-meta-link">STL</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <blockquote>
+<p><font color=blue>        Map是STL的一个关联容器，它提供一对一（其中第一个可以称为关键字，每个关键字只能在map中出现一次，第二个可能称为该关键字的值）的数据处理能力，由于这个特性，它完成有可能在我们处理一对一数据的时候，在编程上提供快速通道。</font></p>
+<p><font color=blue>        这里说下map内部数据的组织，map内部自建一颗红黑树(一 种非严格意义上的平衡二叉树)，这颗树具有对数据自动排序的功能，所以在map内部所有的数据都是有序的，后边我们会见识到有序的好处。</font></p>
+</blockquote>
+<ul>
+<li><p>它的特点是增加和删除节点对迭代器的影响很小，除了那个操作节点，对其他的节点都没有什么影响。</p>
+</li>
+<li><p>对于迭代器来说，可以修改实值，而不能修改key。</p>
+</li>
+<li><p><strong>map的功能</strong></p>
+<ul>
+<li><p>自动建立Key － value的对应。key 和 value可以是任意你需要的类型。</p>
+</li>
+<li><p><strong>根据key值快速查找记录，查找的复杂度基本是Log</strong>(N)，如果有1000个记录，最多查找10次，1,000,000个记录，最多查找20次。</p>
+</li>
+<li><p>快速插入Key -Value 记录。</p>
+</li>
+<li><p>快速删除记录</p>
+</li>
+<li><p>根据Key 修改value记录。</p>
+</li>
+<li><p>遍历所有记录。</p>
+</li>
+</ul>
+</li>
+<li><p><font color=red>使用时包含头文件<code>#include&lt;map&gt;</code></font></p>
+</li>
+</ul>
+<h3 id="一、map的创建"><a href="#一、map的创建" class="headerlink" title="一、map的创建"></a>一、map的创建</h3><pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// map&lt;typename1,typename2> mp;</span>
+map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span>string<span class="token operator">></span> m1<span class="token punctuation">;</span>
+map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">char</span><span class="token operator">></span> m2<span class="token punctuation">;</span>
+map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token operator">></span> m3<span class="token punctuation">;</span>
+map<span class="token operator">&lt;</span>string<span class="token punctuation">,</span><span class="token keyword">int</span><span class="token operator">></span> m4<span class="token punctuation">;</span>
+map<span class="token operator">&lt;</span><span class="token keyword">double</span><span class="token punctuation">,</span>string<span class="token operator">></span> m5<span class="token punctuation">;</span>
+map<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token punctuation">,</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">>></span> m6<span class="token punctuation">;</span>
+map<span class="token operator">&lt;</span>set<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token punctuation">,</span>string<span class="token operator">></span> m7<span class="token punctuation">;</span></code></pre>
+
+<h3 id="二、插入元素"><a href="#二、插入元素" class="headerlink" title="二、插入元素"></a>二、插入元素</h3><pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//以 map&lt;int,string> mp 为例</span>
+<span class="token comment">//第一种：用insert函數插入pair</span>
+mp<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>pair<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> string<span class="token operator">></span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"one"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+mp<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>pair<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> string<span class="token operator">></span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>
+<span class="token comment">//第二种：用insert函数插入value_type数据</span>
+mp<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token class-name">map</span><span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> string<span class="token operator">></span><span class="token operator">::</span><span class="token function">value_type</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"one"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+mp<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token class-name">map</span><span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> string<span class="token operator">></span><span class="token operator">::</span><span class="token function">value_type</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>
+<span class="token comment">//第三种：用数组方式插入</span>
+mp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"one"</span><span class="token punctuation">;</span>
+mp<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"two"</span><span class="token punctuation">;</span></code></pre>
+
+<h3 id="三、map的遍历"><a href="#三、map的遍历" class="headerlink" title="三、map的遍历"></a>三、map的遍历</h3><pre class="language-cpp" data-language="cpp"><code class="language-cpp">map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> string<span class="token operator">></span><span class="token operator">::</span>iterator iter<span class="token punctuation">;</span> 
+<span class="token keyword">for</span><span class="token punctuation">(</span>iter <span class="token operator">=</span> mp<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> iter <span class="token operator">!=</span> mp<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> iter<span class="token operator">++</span><span class="token punctuation">)</span>
+    cout<span class="token operator">&lt;&lt;</span>iter<span class="token operator">-></span>first<span class="token operator">&lt;&lt;</span><span class="token string">' '</span><span class="token operator">&lt;&lt;</span>iter<span class="token operator">-></span>second<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+<span class="token comment">//以下为反向迭代器</span>
+map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> string<span class="token operator">></span><span class="token operator">::</span>reverse_iterator iter<span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>iter <span class="token operator">=</span> mp<span class="token punctuation">.</span><span class="token function">rbegin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> iter <span class="token operator">!=</span> mp<span class="token punctuation">.</span><span class="token function">rend</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> iter<span class="token operator">++</span><span class="token punctuation">)</span>  
+    cout<span class="token operator">&lt;&lt;</span>iter<span class="token operator">-></span>first<span class="token operator">&lt;&lt;</span><span class="token string">"  "</span><span class="token operator">&lt;&lt;</span>iter<span class="token operator">-></span>second<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+<span class="token comment">//数组方式（要求比较苛刻，如：键类型为int）</span>
+<span class="token keyword">int</span> nSize <span class="token operator">=</span> mp<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> nindex <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> nindex <span class="token operator">&lt;=</span> nSize<span class="token punctuation">;</span> nindex<span class="token operator">++</span><span class="token punctuation">)</span>    
+    cout<span class="token operator">&lt;&lt;</span>mapStudent<span class="token punctuation">[</span>nindex<span class="token punctuation">]</span><span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span></code></pre>
+
+<h3 id="四、查找操作"><a href="#四、查找操作" class="headerlink" title="四、查找操作"></a>四、查找操作</h3><ul>
+<li><p><font size=3>第一种：用count函数来判定关键字是否出现，其缺点是无法定位数据出现位置,由于map的特性，一对一的映射关系，就决定了count函数的返回值只有两个，要么是0，要么是1，出现的情况，当然是返回1了。</font></p>
+</li>
+<li><p><font size=3>第二种：用find()函数来定位数据出现位置，它返回的一个迭代器，当数据出现时，它返回数据所在位置的迭代器，如果map中没有要查找的数据，它返回的迭代器等于end()函数返回的迭代器。<strong>传入的参数是要查找的key</strong></font></p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp">map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> string<span class="token operator">></span><span class="token operator">::</span>iterator iter<span class="token punctuation">;</span>  
+iter <span class="token operator">=</span> mp<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token keyword">if</span><span class="token punctuation">(</span>iter <span class="token operator">!=</span> mp<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    cout<span class="token operator">&lt;&lt;</span><span class="token string">"Find, the value is "</span><span class="token operator">&lt;&lt;</span>iter<span class="token operator">-></span>second<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span> 
+<span class="token keyword">else</span>
+	cout<span class="token operator">&lt;&lt;</span><span class="token string">"Not Find"</span><span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span></code></pre></li>
+<li><p>第三种：这个方法用来判定数据是否出现。<del>（显得笨了点）</del></p>
+<p><code>lower_bound()</code>函数用法，这个函数用来返回要查找关键字的下界(是一个迭代器)</p>
+<p><code>upper_bound()</code>函数用法，这个函数用来返回要查找关键字的上界(是一个迭代器)</p>
+<p><code>Equal_range()</code>函数返回一个pair，pair里面第一个变量是<code>Lower_bound</code>返回的迭代器，pair里面第二个迭代器是<code>Upper_bound</code>返回的迭代器，如果这两个迭代器相等的话，则说明map中不出现这个关键字</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp">pair<span class="token operator">&lt;</span>map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> string<span class="token operator">></span><span class="token operator">::</span>iterator<span class="token punctuation">,</span> map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> string<span class="token operator">></span><span class="token operator">::</span>iterator<span class="token operator">></span> mappair<span class="token punctuation">;</span>  
+mappair <span class="token operator">=</span> mp<span class="token punctuation">.</span><span class="token function">equal_range</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token keyword">if</span><span class="token punctuation">(</span>mappair<span class="token punctuation">.</span>first <span class="token operator">==</span> mappair<span class="token punctuation">.</span>second<span class="token punctuation">)</span>  
+	cout<span class="token operator">&lt;&lt;</span><span class="token string">"Not Find"</span><span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>  
+<span class="token keyword">else</span>  
+	cout<span class="token operator">&lt;&lt;</span><span class="token string">"Find"</span><span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>  </code></pre></li>
+</ul>
+<h3 id="五、删除操作"><a href="#五、删除操作" class="headerlink" title="五、删除操作"></a>五、删除操作</h3><pre class="language-cpp" data-language="cpp"><code class="language-cpp">iterator <span class="token function">erase</span><span class="token punctuation">(</span>iterator it<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 通过一个条目对象删除</span>
+iterator <span class="token function">erase</span><span class="token punctuation">(</span>iterator first，iterator last<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 删除一个范围</span>
+size_type <span class="token function">erase</span><span class="token punctuation">(</span><span class="token keyword">const</span> Key<span class="token operator">&amp;</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 通过关键字删除</span>
+<span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 就相当于enumMap.erase(enumMap.begin(), enumMap.end());</span>
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> string<span class="token operator">></span><span class="token operator">::</span>iterator iter<span class="token punctuation">;</span>  
+iter <span class="token operator">=</span> mp<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+mp<span class="token punctuation">.</span><span class="token function">erase</span><span class="token punctuation">(</span>iter<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 删除成功返回1，否则返回0</span>
+mp<span class="token punctuation">.</span><span class="token function">erase</span><span class="token punctuation">(</span>mp<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> mp<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 等同于mp.clear();</span></code></pre>
+
+<h3 id="六、基本操作函数"><a href="#六、基本操作函数" class="headerlink" title="六、基本操作函数"></a>六、基本操作函数</h3><pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回指向map头部的迭代器</span>
+<span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 删除所有元素</span>
+<span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回指定元素出现的次数</span>
+<span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 如果map为空则返回true</span>
+<span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回指向map末尾的迭代器</span>
+<span class="token function">equal_range</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回特殊条目的迭代器对</span>
+<span class="token function">erase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 删除一个元素</span>
+<span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 查找一个元素</span>
+<span class="token function">get_allocator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回map的配置器</span>
+<span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 插入元素</span>
+<span class="token function">key_comp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回比较元素key的函数</span>
+<span class="token function">lower_bound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回键值>=给定元素的第一个位置</span>
+<span class="token function">max_size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回可以容纳的最大元素个数</span>
+<span class="token function">rbegin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回一个指向map尾部的逆向迭代器</span>
+<span class="token function">rend</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回一个指向map头部的逆向迭代器</span>
+<span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回map中元素的个数</span>
+<span class="token function">swap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 交换两个map</span>
+<span class="token function">upper_bound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回键值>给定元素的第一个位置</span>
+<span class="token function">value_comp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回比较元素value的函数</span></code></pre>
+
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  <div class="nav-item-prev">
+    <a href="/2020/03/05/STL：bitset用法/" class="nav-link">
+      <i class="iconfont icon-left nav-prev-icon"></i>
+      <div>
+        <div class="nav-label">上一篇</div>
+        
+        <div class="nav-title">STL：bitset用法 </div>
+        
+      </div>
+    </a>
+  </div>
+  
+  
+  <div class="nav-item-next">
+    <a href="/2020/02/21/STL：set用法/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">STL：set用法 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81map%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">一、map的创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="toc-text">二、插入元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81map%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-text">三、map的遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%9F%A5%E6%89%BE%E6%93%8D%E4%BD%9C"><span class="toc-text">四、查找操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-text">五、删除操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-text">六、基本操作函数</span></a></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/img.jpg" class="author-img">
+
+<p class="author-name">Monologue</p>
+<p class="author-description">！(ง •̀_•́)ง Keep coding！</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>45</span>
+    <span>文章</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>6</span>
+    <span>分类</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>8</span>
+    <span>标签</span>
+  </a>
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81map%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">一、map的创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="toc-text">二、插入元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81map%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-text">三、map的遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%9F%A5%E6%89%BE%E6%93%8D%E4%BD%9C"><span class="toc-text">四、查找操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-text">五、删除操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-text">六、基本操作函数</span></a></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>分类</div>
+  <div class="categories-list">
+    
+      <a href="/categories/LC周赛">
+        <div class="categories-list-item">
+          LC周赛
+          <span class="categories-list-item-badge">11</span>
+        </div>
+      </a>
+    
+      <a href="/categories/STL常用模板总结">
+        <div class="categories-list-item">
+          STL常用模板总结
+          <span class="categories-list-item-badge">10</span>
+        </div>
+      </a>
+    
+      <a href="/categories/小技巧">
+        <div class="categories-list-item">
+          小技巧
+          <span class="categories-list-item-badge">7</span>
+        </div>
+      </a>
+    
+      <a href="/categories/高级数据结构">
+        <div class="categories-list-item">
+          高级数据结构
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/经典基础算法">
+        <div class="categories-list-item">
+          经典基础算法
+          <span class="categories-list-item-badge">10</span>
+        </div>
+      </a>
+    
+      <a href="/categories/字符串">
+        <div class="categories-list-item">
+          字符串
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>热门标签</div>
+  <div class="tags-list">
+    
+    <a href="\tags\STL" title="STL"><div class="tags-list-item">STL</div></a>
+    
+    <a href="\tags\图论" title="图论"><div class="tags-list-item">图论</div></a>
+    
+    <a href="\tags\小技巧" title="小技巧"><div class="tags-list-item">小技巧</div></a>
+    
+    <a href="\tags\字符串" title="字符串"><div class="tags-list-item">字符串</div></a>
+    
+    <a href="\tags\数据结构" title="数据结构"><div class="tags-list-item">数据结构</div></a>
+    
+    <a href="\tags\二叉树" title="二叉树"><div class="tags-list-item">二叉树</div></a>
+    
+    <a href="\tags\堆" title="堆"><div class="tags-list-item">堆</div></a>
+    
+    <a href="\tags\筛法" title="筛法"><div class="tags-list-item">筛法</div></a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81map%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">一、map的创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="toc-text">二、插入元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81map%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-text">三、map的遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%9F%A5%E6%89%BE%E6%93%8D%E4%BD%9C"><span class="toc-text">四、查找操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-text">五、删除操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-text">六、基本操作函数</span></a></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>最近文章</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-21</div>
+        <a href="/2021/03/21/LeetCode第233场周赛/"><div class="recent-posts-item-content">LeetCode第233场周赛</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-14</div>
+        <a href="/2021/03/14/LeetCode第232场周赛/"><div class="recent-posts-item-content">LeetCode第232场周赛</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-07</div>
+        <a href="/2021/03/07/c++位运算函数之-__builtin_/"><div class="recent-posts-item-content">c++位运算函数之（__builtin_）</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-06</div>
+        <a href="/2021/03/06/LeetCode第47场双周赛/"><div class="recent-posts-item-content">LeetCode第47场双周赛</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2020 -
+          
+          2021
+        </span>
+        <a href="/" class="footer-link">Monologue's blog </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      <span>&nbsp;|&nbsp;</span>
+      
+      
+      
+      Theme -
+      <a href="https://github.com/theme-kaze" class="footer-link" target="_blank"
+        rel="nofollow noopener noreferrer">&nbsp;Kaze</a>
+      
+    </div>
+    
+    
+    
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton" >
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+
+  
+  
+  
+
+  
+  
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    
+<script src="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js"></script>
+
+  
+
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('data-fslightbox', 'gallery');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('style', 'width: 100%; display: flex; justify-content: center;');
+      img[i].parentElement.insertBefore(wrapper, img[i]);
+      wrapper.appendChild(img[i]);
+    }
+    refreshFsLightbox();
+  }
+</script>
+<script>loadScript("//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>

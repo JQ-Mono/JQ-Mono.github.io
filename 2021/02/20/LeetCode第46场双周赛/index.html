@@ -67,6 +67,8 @@
   <link rel="preload" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css" as="style" >
   <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
   
+  <link rel="preload" href="//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js" as="script">
+  
   
   <link rel="preload" href="/js/lib/lozad.min.js" as="script">
   
@@ -161,8 +163,7 @@
   
   </header>
   <div id="section" class="post-content">
-    <h4 id="1765-地图中的最高点"><a href="#1765-地图中的最高点" class="headerlink" title="1765. 地图中的最高点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/map-of-highest-peak/">1765. 地图中的最高点</a></h4><p>难度中等8</p>
-<p>给你一个大小为 <code>m x n</code> 的整数矩阵 <code>isWater</code> ，它代表了一个由 <strong>陆地</strong> 和 <strong>水域</strong> 单元格组成的地图。</p>
+    <h4 id="1765-地图中的最高点"><a href="#1765-地图中的最高点" class="headerlink" title="1765. 地图中的最高点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/map-of-highest-peak/">1765. 地图中的最高点</a></h4><p>给你一个大小为 <code>m x n</code> 的整数矩阵 <code>isWater</code> ，它代表了一个由 <strong>陆地</strong> 和 <strong>水域</strong> 单元格组成的地图。</p>
 <ul>
 <li>如果 <code>isWater[i][j] == 0</code> ，格子 <code>(i, j)</code> 是一个 <strong>陆地</strong> 格子。</li>
 <li>如果 <code>isWater[i][j] == 1</code> ，格子 <code>(i, j)</code> 是一个 <strong>水域</strong> 格子。</li>
@@ -176,14 +177,14 @@
 <p>找到一种安排高度的方案，使得矩阵中的最高高度值 <strong>最大</strong> 。</p>
 <p>请你返回一个大小为 <code>m x n</code> 的整数矩阵 <code>height</code> ，其中 <code>height[i][j]</code> 是格子 <code>(i, j)</code> 的高度。如果有多种解法，请返回 <strong>任意一个</strong> 。</p>
 <p><strong>示例 1：</strong></p>
-<p><strong><img src="https://assets.leetcode.com/uploads/2021/01/10/screenshot-2021-01-11-at-82045-am.png" alt="img"></strong></p>
+<p><strong><img src="https://assets.leetcode.com/uploads/2021/01/10/screenshot-2021-01-11-at-82045-am.png" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://assets.leetcode.com/uploads/2021/01/10/screenshot-2021-01-11-at-82045-am.png" class="lozad post-image"></strong></p>
 <pre class="language-none"><code class="language-none">输入：isWater &#x3D; [[0,1],[0,0]]
 输出：[[1,0],[2,1]]
 解释：上图展示了给各个格子安排的高度。
 蓝色格子是水域格，绿色格子是陆地格。</code></pre>
 
 <p><strong>示例 2：</strong></p>
-<p><strong><img src="https://assets.leetcode.com/uploads/2021/01/10/screenshot-2021-01-11-at-82050-am.png" alt="img"></strong></p>
+<p><strong><img src="https://assets.leetcode.com/uploads/2021/01/10/screenshot-2021-01-11-at-82050-am.png" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://assets.leetcode.com/uploads/2021/01/10/screenshot-2021-01-11-at-82050-am.png" class="lozad post-image"></strong></p>
 <pre class="language-none"><code class="language-none">输入：isWater &#x3D; [[0,0,1],[1,0,0],[0,0,0]]
 输出：[[1,1,0],[0,1,1],[1,2,2]]
 解释：所有安排方案中，最高可行高度为 2 。
@@ -244,7 +245,7 @@
 <p>从节点 <code>i</code> 到 <strong>根</strong> 最短路径上的点都是节点 <code>i</code> 的祖先节点。一个节点 <strong>不是</strong> 它自己的祖先节点。</p>
 <p>请你返回一个大小为 <code>n</code> 的数组 <code>ans</code> ，其中 <code>ans[i]</code>是离节点 <code>i</code> 最近的祖先节点且满足 <code>nums[i]</code> 和 <code>nums[ans[i]]</code> 是 <strong>互质的</strong> ，如果不存在这样的祖先节点，<code>ans[i]</code> 为 <code>-1</code> 。</p>
 <p><strong>示例 1：</strong></p>
-<p><strong><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/02/20/untitled-diagram.png" alt="img"></strong></p>
+<p><strong><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/02/20/untitled-diagram.png" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/02/20/untitled-diagram.png" class="lozad post-image"></strong></p>
 <pre class="language-none"><code class="language-none">输入：nums &#x3D; [2,3,3,2], edges &#x3D; [[0,1],[1,2],[1,3]]
 输出：[-1,0,0,1]
 解释：上图中，每个节点的值在括号中表示。
@@ -254,7 +255,7 @@
 - 节点 3 有两个祖先节点，分别是节点 1 和节点 0 。它与节点 1 互质（gcd(3,2) &#x3D;&#x3D; 1），所以节点 1 是离它最近的符合要求的祖先节点。</code></pre>
 
 <p><strong>示例 2：</strong></p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/02/20/untitled-diagram1.png" alt="img"></p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/02/20/untitled-diagram1.png" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/02/20/untitled-diagram1.png" class="lozad post-image"></p>
 <pre class="language-none"><code class="language-none">输入：nums &#x3D; [5,6,10,2,3,6,15], edges &#x3D; [[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]]
 输出：[-1,0,-1,0,0,0,-1]</code></pre>
 
@@ -367,15 +368,15 @@
 <p class="author-description">！(ง •̀_•́)ง Keep coding！</p>
 <div class="author-message">
   <a class="author-posts-count" href="/archives">
-    <span>26</span>
+    <span>45</span>
     <span>文章</span>
   </a>
   <a class="author-categories-count" href="/categories">
-    <span>5</span>
+    <span>6</span>
     <span>分类</span>
   </a>
   <a class="author-tags-count" href="/tags">
-    <span>4</span>
+    <span>8</span>
     <span>标签</span>
   </a>
 </div>
@@ -415,21 +416,28 @@
       <a href="/categories/小技巧">
         <div class="categories-list-item">
           小技巧
-          <span class="categories-list-item-badge">2</span>
+          <span class="categories-list-item-badge">7</span>
+        </div>
+      </a>
+    
+      <a href="/categories/高级数据结构">
+        <div class="categories-list-item">
+          高级数据结构
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/经典基础算法">
+        <div class="categories-list-item">
+          经典基础算法
+          <span class="categories-list-item-badge">10</span>
         </div>
       </a>
     
       <a href="/categories/字符串">
         <div class="categories-list-item">
           字符串
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
-      <a href="/categories/算法">
-        <div class="categories-list-item">
-          算法
-          <span class="categories-list-item-badge">1</span>
+          <span class="categories-list-item-badge">3</span>
         </div>
       </a>
     
@@ -444,11 +452,19 @@
     
     <a href="\tags\STL" title="STL"><div class="tags-list-item">STL</div></a>
     
-    <a href="\tags\算法" title="算法"><div class="tags-list-item">算法</div></a>
+    <a href="\tags\图论" title="图论"><div class="tags-list-item">图论</div></a>
     
     <a href="\tags\小技巧" title="小技巧"><div class="tags-list-item">小技巧</div></a>
     
-    <a href="\tags\字符串高精度" title="字符串高精度"><div class="tags-list-item">字符串高精度</div></a>
+    <a href="\tags\字符串" title="字符串"><div class="tags-list-item">字符串</div></a>
+    
+    <a href="\tags\数据结构" title="数据结构"><div class="tags-list-item">数据结构</div></a>
+    
+    <a href="\tags\二叉树" title="二叉树"><div class="tags-list-item">二叉树</div></a>
+    
+    <a href="\tags\堆" title="堆"><div class="tags-list-item">堆</div></a>
+    
+    <a href="\tags\筛法" title="筛法"><div class="tags-list-item">筛法</div></a>
     
   </div>
 </div>
@@ -572,6 +588,23 @@
   
 
   
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('data-fslightbox', 'gallery');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('style', 'width: 100%; display: flex; justify-content: center;');
+      img[i].parentElement.insertBefore(wrapper, img[i]);
+      wrapper.appendChild(img[i]);
+    }
+    refreshFsLightbox();
+  }
+</script>
+<script>loadScript("//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js", addImgLayout)</script>
   
   
   
